@@ -22,7 +22,7 @@ function URLInput() {
             });
 
             const data = await response.json();
-            setShortUrl(`${BASE_URL}/${data.data.shortId}`);
+            setShortUrl(`${BASE_URL}/api/${data.data.shortId}`);
             setUrl("");
         } catch (error) {
             console.error('Error:', error);
