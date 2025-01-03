@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState } from 'react';
 
 function URLInput() {
@@ -45,18 +46,25 @@ function URLInput() {
         >
             Create Short URL
         </button>
-
         {shortUrl && (
             <div className="mt-4 p-4 bg-green-100 rounded">
-            <p className="text-green-700">Short URL created successfully:</p>
-            <a
-                href={shortUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 underline break-all"
-            >
-                {shortUrl}
-            </a>
+                <p className="text-green-700">Short URL created successfully:</p>
+                <a
+                    href={shortUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 underline break-all"
+                >
+                    {shortUrl}
+                </a>
+                <div className="mt-2">
+                    <Link
+                        href={`/${shortUrl.split('/').pop()}/analytics`}
+                        className="text-blue-500 underline"
+                    >
+                        View Analytics
+                    </Link>
+                </div>
             </div>
         )}
         </div>
