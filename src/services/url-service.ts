@@ -7,7 +7,7 @@ class UrlService {
         this.urlRepository = new UrlRepository();
     }
 
-    async createShortUrl(url: string) {
+    async createShortUrl(url: string): Promise<IUrl> {
         try {
             const shortID = Math.random().toString(36).substring(2, 8);
             const payload: Partial<IUrl> = {
