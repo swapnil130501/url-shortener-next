@@ -1,38 +1,22 @@
+import UrlService from "@/services/url-service";
 import { NextResponse } from "next/server";
-
-import URL from "../../../models/url";
-import dbConnect from "@/app/config/connectDB";
 
 export async function POST(req: Request) {
     try {
-        await dbConnect();
-
         const body = await req.json();
+        const urlService = new UrlService();
         const { url } = body;
 
-        if (!url) {
-            return NextResponse.json({
-                status: 400,
-                success: false,
-                message: "url is required",
-            });
-        }
+        const result = await urlService.createShortUrl(url);
 
-        const shortId = Math.random().toString(36).substring(2, 8);
-        const payload = {
-            shortId: shortId,
-            redirectURL: url,
-            visitHistory: [],
-        };
-        const result = await URL.create(payload);
         return NextResponse.json({
             status: 201,
             success: true,
             message: "URL shortened successfully",
-            data: result
+            data: result,
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating short URL:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
     }
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import URL from '@/models/url';
-import dbConnect from '@/app/config/connectDB';
+import dbConnect from '@/config/connectDB';
 
 export async function GET(req: Request, { params }: { params: { shortId: string } }) {
     try {
